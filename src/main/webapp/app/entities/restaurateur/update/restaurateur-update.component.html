@@ -1,0 +1,123 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-restaurateur-heading"
+        data-cy="RestaurateurCreateUpdateHeading"
+        jhiTranslate="coopCycleApp.restaurateur.home.createOrEditLabel"
+      >
+        Create or edit a Restaurateur
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.restaurateur.nRestaurant" for="field_nRestaurant"
+            >N Restaurant</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="nRestaurant"
+            id="field_nRestaurant"
+            data-cy="nRestaurant"
+            formControlName="nRestaurant"
+          />
+          <div *ngIf="editForm.get('nRestaurant')!.invalid && (editForm.get('nRestaurant')!.dirty || editForm.get('nRestaurant')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nRestaurant')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('nRestaurant')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.restaurateur.adresseRestaurant" for="field_adresseRestaurant"
+            >Adresse Restaurant</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="adresseRestaurant"
+            id="field_adresseRestaurant"
+            data-cy="adresseRestaurant"
+            formControlName="adresseRestaurant"
+          />
+          <div
+            *ngIf="
+              editForm.get('adresseRestaurant')!.invalid &&
+              (editForm.get('adresseRestaurant')!.dirty || editForm.get('adresseRestaurant')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('adresseRestaurant')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.restaurateur.nomRestaurant" for="field_nomRestaurant"
+            >Nom Restaurant</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nomRestaurant"
+            id="field_nomRestaurant"
+            data-cy="nomRestaurant"
+            formControlName="nomRestaurant"
+          />
+          <div
+            *ngIf="
+              editForm.get('nomRestaurant')!.invalid && (editForm.get('nomRestaurant')!.dirty || editForm.get('nomRestaurant')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nomRestaurant')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

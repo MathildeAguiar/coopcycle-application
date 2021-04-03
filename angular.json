@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "coop-cycle-application": {
+    "coop-cycle": {
       "root": "",
       "sourceRoot": "src/main/webapp",
       "projectType": "application",
@@ -66,12 +66,12 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "coop-cycle-application:build",
+            "browserTarget": "coop-cycle:build",
             "proxyConfig": "./webpack/proxy.conf.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "coop-cycle-application:build:production"
+              "browserTarget": "coop-cycle:build:production"
             }
           }
         },
@@ -93,7 +93,7 @@
       "prefix": "jhi"
     }
   },
-  "defaultProject": "coop-cycle-application",
+  "defaultProject": "coop-cycle",
   "cli": {
     "packageManager": "npm"
   }

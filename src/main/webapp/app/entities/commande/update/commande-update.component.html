@@ -1,0 +1,155 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-commande-heading" data-cy="CommandeCreateUpdateHeading" jhiTranslate="coopCycleApp.commande.home.createOrEditLabel">
+        Create or edit a Commande
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.commande.nCommande" for="field_nCommande">N Commande</label>
+          <input type="number" class="form-control" name="nCommande" id="field_nCommande" data-cy="nCommande" formControlName="nCommande" />
+          <div *ngIf="editForm.get('nCommande')!.invalid && (editForm.get('nCommande')!.dirty || editForm.get('nCommande')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nCommande')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('nCommande')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.commande.date" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            </span>
+          </div>
+          <div *ngIf="editForm.get('date')!.invalid && (editForm.get('date')!.dirty || editForm.get('date')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('date')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.commande.contenu" for="field_contenu">Contenu</label>
+          <input type="text" class="form-control" name="contenu" id="field_contenu" data-cy="contenu" formControlName="contenu" />
+          <div *ngIf="editForm.get('contenu')!.invalid && (editForm.get('contenu')!.dirty || editForm.get('contenu')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('contenu')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.commande.montant" for="field_montant">Montant</label>
+          <input type="number" class="form-control" name="montant" id="field_montant" data-cy="montant" formControlName="montant" />
+          <div *ngIf="editForm.get('montant')!.invalid && (editForm.get('montant')!.dirty || editForm.get('montant')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('montant')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('montant')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.commande.restaurateur" for="field_restaurateur">Restaurateur</label>
+          <select class="form-control" id="field_restaurateur" data-cy="restaurateur" name="restaurateur" formControlName="restaurateur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                restaurateurOption.id === editForm.get('restaurateur')!.value?.id ? editForm.get('restaurateur')!.value : restaurateurOption
+              "
+              *ngFor="let restaurateurOption of restaurateursSharedCollection; trackBy: trackRestaurateurById"
+            >
+              {{ restaurateurOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.commande.livreur" for="field_livreur">Livreur</label>
+          <select class="form-control" id="field_livreur" data-cy="livreur" name="livreur" formControlName="livreur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="livreurOption.id === editForm.get('livreur')!.value?.id ? editForm.get('livreur')!.value : livreurOption"
+              *ngFor="let livreurOption of livreursSharedCollection; trackBy: trackLivreurById"
+            >
+              {{ livreurOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.commande.client" for="field_client">Client</label>
+          <select class="form-control" id="field_client" data-cy="client" name="client" formControlName="client">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="clientOption.id === editForm.get('client')!.value?.id ? editForm.get('client')!.value : clientOption"
+              *ngFor="let clientOption of clientsSharedCollection; trackBy: trackClientById"
+            >
+              {{ clientOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

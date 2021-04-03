@@ -21,7 +21,7 @@ module.exports = (config, options, targetOptions) => {
       }),
       new FriendlyErrorsWebpackPlugin(),
       new WebpackNotifierPlugin({
-        title: 'Coop Cycle Application',
+        title: 'Coop Cycle',
         contentImage: path.join(__dirname, 'logo-jhipster.png'),
       })
     );
@@ -108,9 +108,6 @@ module.exports = (config, options, targetOptions) => {
       output: {
         groupBy: [
           { pattern: './src/main/webapp/i18n/fr/*.json', fileName: './i18n/fr.json' },
-          { pattern: './src/main/webapp/i18n/zh-tw/*.json', fileName: './i18n/zh-tw.json' },
-          { pattern: './src/main/webapp/i18n/ja/*.json', fileName: './i18n/ja.json' },
-          { pattern: './src/main/webapp/i18n/ko/*.json', fileName: './i18n/ko.json' },
           // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
         ],
       },
