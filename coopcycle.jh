@@ -1,0 +1,70 @@
+application {
+  config {
+    baseName CoopCycle,
+    applicationType monolith,
+    packageName com.coopcycle,
+    authenticationType jwt,
+    prodDatabaseType mysql,
+    clientFramework angularX
+  }
+  entities *
+}
+
+entity Commande {
+	nCommande Long unique required,
+    date LocalDate required,
+    contenu String required,
+    montant Long required
+
+}
+
+entity Client {
+	nom String required,
+    adresse String required,
+    telephone String pattern(/[0-9]/),
+    nClient Long unique required
+}
+
+entity Restaurateur {
+	nRestaurant Long unique required,
+    adresseRestaurant String required,
+    nomRestaurant String required
+}
+
+entity Livreur {
+
+	numLivreur Integer unique required,
+    nomLivreur String required,
+    positionGPS String required
+}
+
+enum Language {
+    FRENCH, ENGLISH, JAPANESE, KOREAN
+}
+
+
+relationship OneToMany {
+   Restaurateur to Commande
+   Livreur to Commande
+  Client to Commande
+}
+
+//need to add other things
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+paginate * with pagination
+
+dto * with mapstruct
+service * with serviceImpl
+
+filter*
+// N'oubliez pas d'ajouter des contraintes de validation 
+//(required, min, max, minbytes, maxbytes, minlength, 
+//maxlength, pattern, unique)
+
+    

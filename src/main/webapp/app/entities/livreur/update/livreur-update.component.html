@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-livreur-heading" data-cy="LivreurCreateUpdateHeading" jhiTranslate="coopCycleApp.livreur.home.createOrEditLabel">
+        Create or edit a Livreur
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.livreur.numLivreur" for="field_numLivreur">Num Livreur</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numLivreur"
+            id="field_numLivreur"
+            data-cy="numLivreur"
+            formControlName="numLivreur"
+          />
+          <div *ngIf="editForm.get('numLivreur')!.invalid && (editForm.get('numLivreur')!.dirty || editForm.get('numLivreur')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('numLivreur')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('numLivreur')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.livreur.nomLivreur" for="field_nomLivreur">Nom Livreur</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nomLivreur"
+            id="field_nomLivreur"
+            data-cy="nomLivreur"
+            formControlName="nomLivreur"
+          />
+          <div *ngIf="editForm.get('nomLivreur')!.invalid && (editForm.get('nomLivreur')!.dirty || editForm.get('nomLivreur')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nomLivreur')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="coopCycleApp.livreur.positionGPS" for="field_positionGPS">Position GPS</label>
+          <input
+            type="text"
+            class="form-control"
+            name="positionGPS"
+            id="field_positionGPS"
+            data-cy="positionGPS"
+            formControlName="positionGPS"
+          />
+          <div *ngIf="editForm.get('positionGPS')!.invalid && (editForm.get('positionGPS')!.dirty || editForm.get('positionGPS')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('positionGPS')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

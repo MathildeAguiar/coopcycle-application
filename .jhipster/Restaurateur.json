@@ -1,0 +1,38 @@
+{
+  "name": "Restaurateur",
+  "fields": [
+    {
+      "fieldName": "nRestaurant",
+      "fieldType": "Long",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "adresseRestaurant",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nomRestaurant",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "commande",
+      "otherEntityRelationshipName": "restaurateur",
+      "relationshipName": "commande"
+    }
+  ],
+  "entityTableName": "restaurateur",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["CoopCycle"],
+  "changelogDate": "20210403135333"
+}
